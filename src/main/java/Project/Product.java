@@ -1,5 +1,6 @@
 package Project;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Product {
@@ -61,4 +62,17 @@ public class Product {
     public String toString() {
         return productId + "|" + productName + "|" + category + "| Rs." + price + "| Qty:" + quantity;
     }
+
+    public static final Comparator<Product> BY_ID =
+            Comparator.comparing(Product::getProductId);
+
+    public static final Comparator<Product> BY_NAME =
+            Comparator.comparing(Product::getProductName);
+
+    public static final Comparator<Product> BY_QUANTITY =
+            Comparator.comparingInt(Product::getQuantity);
+
+    public static final Comparator<Product> BY_PRICE =
+            Comparator.comparingDouble(Product::getPrice);
+
 }

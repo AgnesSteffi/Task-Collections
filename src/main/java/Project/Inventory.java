@@ -65,4 +65,18 @@ public class Inventory {
         return categories;
     }
 
+//    public Map<Product, String> getSortedProducts(Comparator<Product> comparator) {
+//
+//        Comparator<Product> safeComparator =
+//                comparator.thenComparing(Product::getProductId);
+//
+//        TreeMap<Product, String> sortedMap = new TreeMap<>(safeComparator);
+//
+//        for (Product p : products.values()) {
+//            sortedMap.put(p, p.getProductId());
+//        }
+//
+//        return sortedMap;
+//    }
+
 }
