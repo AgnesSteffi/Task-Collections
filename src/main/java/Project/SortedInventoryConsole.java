@@ -20,13 +20,13 @@ public class SortedInventoryConsole {
         sc.nextLine();
 
         SortedInventory inventory = switch (sortChoice) {
-            case 1 -> new SortedInventory(Product.BY_ID);
-            case 2 -> new SortedInventory(Product.BY_NAME);
-            case 3 -> new SortedInventory(Product.BY_QUANTITY);
-            case 4 -> new SortedInventory(Product.BY_PRICE);
+            case 1 -> new SortedInventory(Product.byId);
+            case 2 -> new SortedInventory(Product.byName);
+            case 3 -> new SortedInventory(Product.byQuantity);
+            case 4 -> new SortedInventory(Product.byPrice);
             default -> {
                 System.out.println("Invalid choice. Defaulting to ID.");
-                yield new SortedInventory(Product.BY_ID);
+                yield new SortedInventory(Product.byId);
             }
         };
 
@@ -134,10 +134,10 @@ public class SortedInventoryConsole {
                     sc.nextLine();
 
                     Comparator<Product> comparator = switch (newSort) {
-                        case 1 -> Product.BY_ID;
-                        case 2 -> Product.BY_NAME;
-                        case 3 -> Product.BY_QUANTITY;
-                        case 4 -> Product.BY_PRICE;
+                        case 1 -> Product.byId;
+                        case 2 -> Product.byName;
+                        case 3 -> Product.byQuantity;
+                        case 4 -> Product.byPrice;
                         default -> null;
                     };
 

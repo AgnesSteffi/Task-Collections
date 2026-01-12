@@ -61,12 +61,8 @@ public class SortedInventory {
         return true;
     }
 
-    // 🔥 Always sorted using current comparator
     public List<Product> listAll() {
-        return products.values()
-                .stream()
-                .sorted(currentComparator.thenComparing(Product::getProductId))
-                .toList();
+        return CollectionUtils.sort(products.values(), currentComparator);
     }
 
     public Set<String> listCategories() {

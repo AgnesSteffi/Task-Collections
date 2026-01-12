@@ -63,16 +63,32 @@ public class Product {
         return productId + "|" + productName + "|" + category + "| Rs." + price + "| Qty:" + quantity;
     }
 
-    public static final Comparator<Product> BY_ID =
-            Comparator.comparing(Product::getProductId);
+    public static final Comparator<Product> byId = new Comparator<Product>() {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return o1.getProductId().compareTo(o2.getProductId());
+        }
+    };
 
-    public static final Comparator<Product> BY_NAME =
-            Comparator.comparing(Product::getProductName);
+    public static final Comparator<Product> byName = new Comparator<Product>() {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return o1.getProductName().compareTo(o2.getProductName());
+        }
+    };
 
-    public static final Comparator<Product> BY_QUANTITY =
-            Comparator.comparingInt(Product::getQuantity);
+    public static final Comparator<Product> byQuantity = new Comparator<Product>() {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return Integer.compare(o1.getQuantity(), o2.getQuantity());
+        }
+    };
 
-    public static final Comparator<Product> BY_PRICE =
-            Comparator.comparingDouble(Product::getPrice);
+    public static final Comparator<Product> byPrice = new Comparator<Product>() {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return Double.compare(o1.getPrice(), o2.getPrice());
+        }
+    };
 
 }

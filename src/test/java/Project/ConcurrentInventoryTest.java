@@ -6,29 +6,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class ConcurrentInventoryTest {
 
     @Test
-    void testConcurrentAddAndUpdate() throws InterruptedException {
+    void testConcurrentIncrementQuantity() throws InterruptedException {
         ConcurrentInventory inventory = new ConcurrentInventory();
 
-        Product p = new Product("P1", "Laptop", "Electronics", 70000, 10);
-        assertTrue(inventory.addProduct(p));
+        inventory.addProduct(
+                new Product("P100", "Laptop", "Electronics", 80000, 0)
+        );
 
-        Runnable task = () -> {
-            for (int i = 0; i < 5; i++) {
-                inventory.updateQuantity("P1", 50);
-            }
-        };
+        int threads = 50;
+        Thread[] workers = new Thread[threads];
 
-        Thread t1 = new Thread(task);
-        Thread t2 = new Thread(task);
+        for (int i = 0; i < threads; i++) {
+            workers[i] = new Thread(() -> {
+                for (int j = 0; j < 1000; j++) {
+                    inventory.incrementQuantity("P100");
+                }
+            });
+        }
 
-        t1.start();
-        t2.start();
+        for (Thread t : workers) t.start();
+        for (Thread t : workers) t.join();
 
-        t1.join();
-        t2.join();
+        int finalQty = inventory.searchProduct("P100").getQuantity();
 
-        Product result = inventory.searchProduct("P1");
-        assertNotNull(result);
-        assertTrue(result.getQuantity() > 0);
+        assertEquals(threads * 1000, finalQty);
     }
 }

@@ -14,7 +14,7 @@ public class ConcurrentInventory {
         if(p.getProductId() == null || p.getProductId().isBlank()) return false;
         if(p.getProductName() == null || p.getProductName().isBlank()) return false;
         if(p.getCategory() == null || p.getCategory().isBlank()) return false;
-        if(p.getPrice() < 0 || p.getQuantity() <= 0) return false;
+        if(p.getPrice() < 0 || p.getQuantity() < 0) return false;
 
         Product exist = products.putIfAbsent(p.getProductId(), p);
         if(exist != null ) return false;
@@ -62,4 +62,10 @@ public class ConcurrentInventory {
         return categories;
     }
 
+    public void incrementQuantity(String productId) {
+        products.computeIfPresent(productId, (k, v) -> {
+            v.updateQuantity(v.getQuantity() + 1);
+            return v;
+        });
+    }
 }
